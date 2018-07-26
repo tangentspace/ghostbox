@@ -1,0 +1,25 @@
+- name: Install Consul agent
+  unarchive:
+    src: https://releases.hashicorp.com/consul/1.2.1/consul_1.2.1_linux_amd64.zip
+    dest: /usr/local/bin
+    remote_src: yes
+
+- name: Create Nomad configuration directory
+  file:
+    path: /etc/consul
+    state: directory
+
+- name: Install Consul server config file
+  template:
+    src: templates/consul/server.json.j2
+    dest: /etc/consul/server.json
+
+- name: Install Consul systemd unit
+  template:
+    src: templates/consul/consul.service.j2
+    dest: /etc/systemd/system/consul.service
+
+- name: Enable Consul server systemd service
+  systemd:
+    name: consul
+    enabled: yes

@@ -1,0 +1,17 @@
+datacenter = "{{ datacenter }}"
+
+data_dir  = "/var/lib/nomad"
+
+bind_addr = "0.0.0.0"
+
+server {
+  enabled          = true
+  bootstrap_expect = {{ bootstrap_expect }}
+}
+
+client {
+  enabled = true
+  options {
+    "driver.raw_exec.enable" = "1"
+  }
+}

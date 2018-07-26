@@ -1,0 +1,10 @@
+---
+- name: Create Nomad jobs directory
+  file:
+    path: /opt/ghostbox/nomad/jobs
+    state: directory
+
+- name: Write prometheus-server Nomad job file
+  template:
+    src: templates/prometheus/prometheus-server.nomad.j2
+    dest: /opt/ghostbox/nomad/jobs/prometheus-server.nomad

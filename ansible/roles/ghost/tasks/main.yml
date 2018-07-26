@@ -1,0 +1,10 @@
+---
+- name: Create Nomad jobs directory
+  file:
+    path: /opt/ghostbox/nomad/jobs
+    state: directory
+
+- name: Write ghost Nomad job file
+  template:
+    src: templates/ghost.nomad.j2
+    dest: /opt/ghostbox/nomad/jobs/ghost.nomad

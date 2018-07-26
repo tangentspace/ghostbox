@@ -1,0 +1,4 @@
+---
+- include_tasks: consul-server.yml
+- include_tasks: nomad-server.yml
+- include_tasks: nomad-jobs.yml

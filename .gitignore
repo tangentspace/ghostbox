@@ -1,0 +1,15 @@
+.vagrant
+ansible/*.retry
+packer_cache
+
+
+# Ignore VM images
+*.ova
+*.ovf
+*.vmdk
+*.iso
+*.box
+
+# Don't check in SSH keys
+config/*.key
+config/*.key.pub

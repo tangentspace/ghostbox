@@ -1,0 +1,52 @@
+{
+  "variables": {
+  },
+  "builders": [
+    {
+      "type": "virtualbox-ovf",
+      "source_path": "images/bionic-server-cloudimg-amd64.ova",
+      "output_directory": "output/virtualbox",
+      "guest_additions_mode": "disable",
+      "headless": true,
+      "ssh_username": "ubuntu",
+      "ssh_password": "ubuntu",
+      "shutdown_command": "echo 'packer' | sudo -S shutdown -P now",
+      "vboxmanage": [
+        ["modifyvm", "{{.Name}}", "--memory", "2048"],
+        ["modifyvm", "{{.Name}}", "--nic1", "nat"],
+        ["storageattach", "{{.Name}}", "--storagectl", "SCSI", "--port", "1", "--device", "0", "--type", "dvddrive", "--medium", "images/cloud-init.iso"],
+        ["modifyvm", "{{.Name}}", "--uart1", "0x3F8", "4", "--uartmode1", "server", "my.ttyS0"],
+        ["modifyvm", "{{.Name}}", "--uartmode1", "disconnected" ]
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "inline": [
+        "echo 'Waiting for time sychronization to complete'",
+        "while true; do",
+        "  timedatectl status | grep 'System clock synchronized' | grep 'yes' && break || sleep 10;",
+        "done"
+      ]
+    },
+    {
+      "type": "shell",
+      "inline": ["sudo apt-get update && sudo apt-get install --yes --no-install-recommends python"]
+    },
+    {
+      "type": "ansible",
+      "playbook_file": "ansible/playbook.yml",
+      "extra_arguments": ["--become"]
+    }
+  ],
+  "post-processors": [
+    [
+      {
+        "type": "vagrant",
+        "keep_input_artifact": true,
+        "output": "output/virtualbox-vagrant/ghostbox.box"
+      }
+    ]
+  ]
+}

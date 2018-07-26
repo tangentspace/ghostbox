@@ -1,0 +1,22 @@
+job "prometheus" {
+  datacenters = ["{{ datacenter }}"]
+
+  group "prometheus" {
+    task "server" {
+      driver = "docker"
+
+      config {
+        image = "prom/prometheus"
+      }
+
+      resources {
+        network {
+          mbits = 10
+          port "http" {
+            static = "9090"
+          }
+        }
+      }
+    }
+  }
+}

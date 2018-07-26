@@ -1,0 +1,22 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "ghostbox"
+
+  config.ssh.username = "ubuntu"
+  config.ssh.password = "ubuntu"
+
+  # Prometheus
+  config.vm.network "forwarded_port", guest: 9090, host: 9090, protocol: "tcp"
+
+  # Consul
+  config.vm.network "forwarded_port", guest: 8500, host: 8500, protocol: "tcp"
+
+  # Nomad
+  config.vm.network "forwarded_port", guest: 4646, host: 4646, protocol: "tcp"
+
+  # Ghost
+  config.vm.network "forwarded_port", guest: 2368, host: 2368, protocol: "tcp"
+end

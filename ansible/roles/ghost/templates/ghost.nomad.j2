@@ -1,0 +1,22 @@
+job "ghost" {
+  datacenters = ["ghostbox"]
+
+  group "ghost" {
+    task "server" {
+      driver = "docker"
+
+      config {
+        image = "ghost"
+      }
+
+      resources {
+        network {
+          mbits = 10
+          port "http" {
+            static = "2368"
+          }
+        }
+      }
+    }
+  }
+}

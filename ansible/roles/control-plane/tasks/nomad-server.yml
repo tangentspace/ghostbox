@@ -1,0 +1,25 @@
+- name: Install Nomad agent
+  unarchive:
+    src: https://releases.hashicorp.com/nomad/0.8.4/nomad_0.8.4_linux_amd64.zip
+    dest: /usr/local/bin
+    remote_src: yes
+
+- name: Create Nomad configuration directory
+  file:
+    path: /etc/nomad
+    state: directory
+
+- name: Install Nomad server config file
+  template:
+    src: templates/nomad/server.hcl.j2
+    dest: /etc/nomad/server.hcl
+
+- name: Install Nomad server systemd unit file
+  template:
+    src: templates/nomad/nomad.service.j2
+    dest: /etc/systemd/system/nomad.service
+
+- name: Enable Nomad server systemd service
+  systemd:
+    name: nomad
+    enabled: yes
