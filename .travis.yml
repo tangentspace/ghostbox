@@ -7,10 +7,6 @@ before_install:
 - mkdir -p $HOME/bin
 script:
 - go install github.com/tangentspace/ghostbox/cmd/boxctl
-addons:
-  artifacts:
-    paths:
-    - "$HOME/bin"
 deploy:
   provider: gcs
   access_key_id: GOOGMH7PMDQYRZ3BN4L4X7QT
