@@ -8,6 +8,7 @@ before_install:
 script:
 - go install github.com/tangentspace/ghostbox/cmd/boxctl
 deploy:
+  skip_cleanup: true
   provider: gcs
   access_key_id: GOOGMH7PMDQYRZ3BN4L4X7QT
   secret_access_key:
