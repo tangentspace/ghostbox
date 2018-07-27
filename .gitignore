@@ -1,6 +1,7 @@
 .vagrant
 ansible/*.retry
 packer_cache
+bin/
 
 
 # Ignore VM images
