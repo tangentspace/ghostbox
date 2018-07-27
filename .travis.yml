@@ -3,9 +3,6 @@ go:
 - 1.10.3
 env:
 - GOBIN=$HOME/bin
-cache:
-  directories:
-  - "$HOME/google-cloud-sdk/"
 before_install:
 - mkdir -p $HOME/bin
 script:
@@ -20,7 +17,7 @@ deploy:
   secret_access_key:
     secure: cGhQjXS/Y8GPKYRY+flMess0e7E9RqoCyn5qTM83IeDXjdUKsXXYffSSnEnoeeCWIPCkjTF3zEI4mfSH6Uwiqc4xLjxrKzcerbkMT8kxGNs5CVlUOVzgaZLteVAnHb9kNKqrspZh+TE6y/bxjaGXUR1/lZvVtllT/I+HlzTjR/Gwvvse7b/FZBUULCTH1kwUe9ujad71Lu6MME7BmLdJKhSDNHpEmu0I/2okBbIKA5IqBnZhxSM6uIP05+cp0jH2FiEsGS5bJSBZvAVe789SMqjtbM6wZK6WRFm0ux2nkui31iA/rzQbOjG6mHM+GSI8U0U+AxKIy495FAYAok5tUOAYDxbQNIfOXpvMpMNPl32pycLy1wQir6zoIL4xxgvX6vcm9cfP97PcCn+bPcQPUw7gv9EediiaXkE4EUin97HPavfSqKAhrkebD1bW5p1I9hYFZdmYBcG7PY+TEftJQ7XlkFLM4sN3bm/KJ6XjXKFVcnfYJC+83ydIpsd+iQRwzza3PqJ+aNmpvJQgsEevrNToJYVyVoM2tEZI+f14AzvHcWAuwcgZzh1bInRLI7raL0KmFK/IHhLTfC0hkGlWy9y5ns1YLLb7aFhMwiSq8wldsHCObr2spVVNFHudr+z5+Eevqb6uqAW3yUlHPnyVXlq1sJbqdpGGPkkYW2zVG9M=
   bucket: ghostbox-artifacts
-  local-dir: bin
+  local-dir: $HOME/bin
   on:
     repo: tangentspace/ghostbox
     branch: add-travis-ci
