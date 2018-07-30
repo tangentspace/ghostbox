@@ -10,6 +10,15 @@ jobs:
       - run: go get -v -t -d ./...
       - run: go install github.com/tangentspace/ghostbox/cmd/boxctl
       - run: ls -lh /go/bin
+  deploy:
+    docker:
+      - image: google/cloud-sdk
+    steps:
+      - run:
+          name: Store Service Account
+          command: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+      - run: |
+          sudo gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
 workflows:
   version: 2
   build_and_test:
