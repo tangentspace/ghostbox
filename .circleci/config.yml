@@ -23,9 +23,8 @@ jobs:
       - run:
           name: Store Service Account
           command: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
-      - run: |
-          gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
-          gsutil cp /tmp/workspace/* gs://ghostbox/artifacts/circleci/builds/${CIRCLE_BUILD_NUM}/
+      - run: gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+      - run: gsutil cp /tmp/workspace/* gs://ghostbox/artifacts/circleci/builds/${CIRCLE_BUILD_NUM}/
 workflows:
   version: 2
   build-and-deploy:
