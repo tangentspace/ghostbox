@@ -13,7 +13,7 @@ jobs:
       - persist_to_workspace:
           root: /go/bin
           paths:
-            - *
+            - boxctl
   deploy:
     docker:
       - image: google/cloud-sdk
