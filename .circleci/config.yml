@@ -1,0 +1,35 @@
+version: 2
+jobs:
+  build:
+    working_directory: /go/src/github.com/tangentspace/ghostbox
+    docker:
+      - image: circleci/golang:1.10.0
+    steps:
+      - checkout
+      - run: go env
+      - run: go get -v -t -d ./...
+      - run: go install github.com/tangentspace/ghostbox/cmd/boxctl
+      - run: ls -lh /go/bin
+      - persist_to_workspace:
+          root: /go/bin
+          paths:
+            - boxctl
+  deploy:
+    docker:
+      - image: google/cloud-sdk
+    steps:
+      - attach_workspace:
+          at: /tmp/workspace
+      - run:
+          name: Store Service Account
+          command: echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+      - run: gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+      - run: gsutil cp /tmp/workspace/* gs://ghostbox/artifacts/circleci/builds/${CIRCLE_BUILD_NUM}/
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
