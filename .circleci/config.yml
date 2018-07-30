@@ -21,7 +21,9 @@ jobs:
           gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
 workflows:
   version: 2
-  build_and_test:
+  build-and-deploy:
     jobs:
       - build
-      - deploy
+      - deploy:
+          requires:
+            - build
