@@ -1,14 +1,13 @@
 version: 2
 jobs:
   build:
-    environment:
-      - GOPATH: /go
-      - GOBIN: /go/bin
+    working_directory: /go/src/github.com/tangentspace/ghostbox
     docker:
       - image: circleci/golang:1.10.0
     steps:
       - checkout
       - run: go env
+      - run: go get -v -t -d ./...
       - run: go install github.com/tangentspace/ghostbox/cmd/boxctl
       - run: ls -lh ${GOBIN}
 workflows:
