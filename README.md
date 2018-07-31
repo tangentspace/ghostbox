@@ -1,5 +1,7 @@
 # GhostBox
 
+[![CircleCI](https://circleci.com/gh/tangentspace/ghostbox.svg?style=svg)](https://circleci.com/gh/tangentspace/ghostbox)
+
 GhostBox is a virtual appliance that allows users to easily deploy and manage
 the [Ghost open source publishing platform](https://ghost.org/). It consists of
 * Virtual machine images for VirtualBox, KVM, Amazon EC2, and Google Compute Engine.
